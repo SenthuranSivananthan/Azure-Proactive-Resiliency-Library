@@ -780,77 +780,26 @@ Azure Databricks initially launched with shared control plane, where some region
 
 Regions that now have their dedicated control plane have workspaces running in two configurations:
 
-* Legacy Workspaces - these are workspaces created before the dedicated control plane was available.
-* Workspaces - these are workspaces created after the dedicated control plane was available.
+- Legacy Workspaces - these are workspaces created before the dedicated control plane was available.
+- Workspaces - these are workspaces created after the dedicated control plane was available.
 
 The path for migrating legacy workspaces to use the in-region control plane is to **redeploy**.
 
-Review the list of network addresses used in each region in the Microsoft documentation and determine which regions are sharing a control plane. For example, we can look up `Canada East` in the table and see that the address for its SCC relay is `tunnel.canadacentral.azuredatabricks.net`. Since the relay address is in `Canada Central`, we know that `Canada East` is using the control plane in another region.
+Review the list of network addresses used in each region in the Microsoft documentation and determine which regions are sharing a control plane. For example, we can look up Canada East in the table and see that the address for its SCC relay is "tunnel.canadacentral.azuredatabricks.net". Since the relay address is in Canada Central, we know that "Canada East" is using the control plane in another region.
 
-Some regions list two different addresses in the Azure Databricks Control plane networking table. For example, North Europe lists both `tunnel.westeurope.azuredatabricks.net` and `tunnel.northeuropec2.azuredatabricks.net` for the SCC relay address. This is because North Europe once shared the West Europe control plane, but it now has its own independent control plane. There are still some old, legacy workspaces in North Europe tied to the old control plane, but all workspaces created since the switch-over will be using the new control plane.
+Some regions list two different addresses in the Azure Databricks Control plane networking table. For example, North Europe lists both "tunnel.westeurope.azuredatabricks.net" and "tunnel.northeuropec2.azuredatabricks.net" for the SCC relay address. This is because North Europe once shared the West Europe control plane, but it now has its own independent control plane. There are still some old, legacy workspaces in North Europe tied to the old control plane, but all workspaces created since the switch-over will be using the new control plane.
 
 Once a new Azure Databricks workspace is created, it should be configured to match the original legacy workspace.  Databricks, Inc.
 recommends that customers use the Databricks Terraform Exporter for both the initial copy and for maintaining the workspace. However, this exporter is still in the experimental phase. For customers that do not trust experimental projects or for customers that do not want to use Terraform, they can use the "Migrate" tool that Databricks, Inc. maintains with GitHub. This is a collection of scripts that will export all of the objects (notebooks, cluster definitions, metadata, *etc.*) from one workspace and then import them to another workspace.  Customers can use the "Migrate" tool to initially populate the new
 workspace and then use their CI/CD deployment process to keep the workspace in sync.
+
+Pro Tip: If you need to determine where the control plane is located for a particular Databricks workspace, you can use the "nslookup" console command on Windows or Linux with the workspace address.  The result will tell you where the control plane is located.
 
 **Resources**
 
 - [Azure Databricks regions - IP addresses and domains](https://learn.microsoft.com/azure/databricks/resources/supported-regions#--ip-addresses-and-domains)
 - [Migrate - maintained by Databricks Inc.](https://github.com/databrickslabs/migrate)
 - [Databricks Terraform Exporter - maintained by Databricks Inc. (Experimental)](https://registry.terraform.io/providers/databricks/databricks/latest/docs/guides/experimental-exporter)
-
-**PRO TIP:** If you need to determine where the control plane is located for a particular Databricks workspace, you can use the `nslookup` console command on Windows or Linux with the workspace address.  The result will tell you where the control plane is located.
-
-**Bash**
-
-```sh
-#!/bin/sh
-
-# Replace adb-2139087616351022.2.azuredatabricks.net
-nslookup adb-2139087616351022.2.azuredatabricks.net
-
-# This will return the following results:
-#
-# Server:  eusinetdns.microsoft.com
-# Address:  157.58.31.4
-#
-# Non-authoritative answer:
-# Name:    japaneast.azuredatabricks.net
-# Address:  52.246.160.72
-# Aliases:  adb-2139087616351022.2.azuredatabricks.net
-#           japanwest.azuredatabricks.net
-#
-# Although this Databricks workspace is located in the Japan West region, we see that
-# the name resovles to japaneast.azuredatabricks.net, which indicates that this workspace
-# is using the control plane in Japan East.
-```
-
-<br><br>
-
-**PowerShell**
-
-```powershell
-# Replace adb-2139087616351022.2.azuredatabricks.net
-Resolve-DnsName adb-2139087616351022.2.azuredatabricks.net
-
-# This will return the following results:
-#
-# Name                                        Type   TTL   Section    NameHost
-# ----                                        ----   ---   -------    --------
-# adb-2139087616351022.2.azuredatabricks.net  CNAME  300   Answer     japanwest.azuredatabricks.net
-# japanwest.azuredatabricks.net               CNAME  300   Answer     japaneast.azuredatabricks.net
-
-# Name       : japaneast.azuredatabricks.net
-# QueryType  : A
-# TTL        : 300
-# Section    : Answer
-# IP4Address : 52.246.160.72
-
-# Although this Databricks workspace is located in the Japan West region, we see that
-# the name resovles to japaneast.azuredatabricks.net, which indicates that this workspace
-# is using the control plane in Japan East.
-
-```
 
 <br><br>
 
@@ -868,9 +817,9 @@ Azure Databricks creates its VMs as regional VMs and depends on Azure to choose 
 
 In these situations, customers have two options:
 
-* Use Databricks Pools.  To manage costs, customers should be careful when selecting the size of their pools. They will have to pay for the Azure VMs even when they are idle in the pool.  Databricks pool can contain only one SKU of VMs; you cannot mix multiple SKUs in the same pool. To reduce the number of pools that customers need to manage, they should settle on a few SKUs that will service their jobs instead of using a different VM
+- Use Databricks Pools.  To manage costs, customers should be careful when selecting the size of their pools. They will have to pay for the Azure VMs even when they are idle in the pool.  Databricks pool can contain only one SKU of VMs; you cannot mix multiple SKUs in the same pool. To reduce the number of pools that customers need to manage, they should settle on a few SKUs that will service their jobs instead of using a different VM
 SKU for each job.
-* Plan for alternative SKUs in their preferred region(s).
+- Plan for alternative SKUs in their preferred region(s).
 
 **Resources**
 
