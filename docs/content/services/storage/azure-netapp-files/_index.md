@@ -14,18 +14,18 @@ The presented resiliency recommendations in this guidance include Azure NetApp F
 {{< table style="table-striped" >}}
 | Recommendation                                    |  Category                                                               |  Impact         |  State   | ARG Query Available |
 | :------------------------------------------------ | :---------------------------------------------------------------------: | :------:        | :------: | :-----------------: |
-| [ANF-1 - Use the correct service level and volume quota size for the expected performance level](#anf-1---use-the-correct-service-level-and-volume-quota-size-for-the-expected-performance-level) | System Efficiency | Medium | Preview  |         No         |
-| [ANF-2 - Use standard network features for production in Azure NetApp Files](#anf-2---use-standard-network-features-for-production-in-azure-netapp-files) | Networking | High | Preview  |         Yes         |
-| [ANF-3 - Use availability zones for high availability in Azure NetApp Files](#anf-3---use-availability-zones-for-high-availability-in-azure-netapp-files) | Availability | High | Preview  |         Yes         |
-| [ANF-4 - Use snapshots for data protection in Azure NetApp Files](#anf-4---use-snapshots-for-data-protection-in-azure-netapp-files) | Availability | High | Preview  |         Yes         |
-| [ANF-5 - Enable backup for data protection in Azure NetApp Files](#anf-5---enable-backup-for-data-protection-in-azure-netapp-files) | Disaster Recovery | High | Preview  |         Yes         |
-| [ANF-6 - Enable Cross-region replication of Azure NetApp Files volumes](#anf-6---enable-cross-region-replication-of-azure-netapp-files-volumes) | Disaster Recovery | High | Preview  |         Yes         |
-| [ANF-7 - Enable Cross-zone replication of Azure NetApp Files volumes](#anf-7---enable-cross-zone-replication-of-azure-netapp-files-volumes) | Availability | High | Preview  |         Yes         |
-| [ANF-8 - Monitor Azure NetApp Files metrics to better understand usage pattern and performance](#anf-8---monitor-azure-netapp-files-metrics-to-better-understand-usage-pattern-and-performance) | Monitoring | Medium | Preview  |         No         |
-| [ANF-9 - Use Azure policy to enforce organizational standards and to assess compliance at-scale in Azure NetApp Files](#anf-9---use-azure-policy-to-enforce-organizational-standards-and-to-assess-compliance-at-scale-in-azure-netapp-files) | Governance | Medium | Preview  |         No         |
-| [ANF-10 - Restrict default access to Azure NetApp Files volumes](#anf-10---restrict-default-access-to-azure-netapp-files-volumes) | Access & Security | Medium | Preview  |         No         |
-| [ANF-11 - Make use of SMB continuous availability for supported applications](#anf-11---make-use-of-smb-continuous-availability-for-supported-applications) | Application Resilience | Medium | Preview  |         No         |
-| [ANF-12 - Ensure application resilience for service maintenance events](#anf-12---ensure-application-resilience-for-service-maintenance-events) | Application Resilience | Medium | Preview  |         No         |
+| [ANF-1 - Use the correct service level and volume quota size for the expected performance level](#anf-1---use-the-correct-service-level-and-volume-quota-size-for-the-expected-performance-level) | System Efficiency | Medium | Verified  |         No         |
+| [ANF-2 - Use standard network features for production in Azure NetApp Files](#anf-2---use-standard-network-features-for-production-in-azure-netapp-files) | Networking | High | Verified  |         Yes         |
+| [ANF-3 - Use availability zones for high availability in Azure NetApp Files](#anf-3---use-availability-zones-for-high-availability-in-azure-netapp-files) | Availability | High | Verified  |         Yes         |
+| [ANF-4 - Use snapshots for data protection in Azure NetApp Files](#anf-4---use-snapshots-for-data-protection-in-azure-netapp-files) | Availability | High | Verified  |         Yes         |
+| [ANF-5 - Enable backup for data protection in Azure NetApp Files](#anf-5---enable-backup-for-data-protection-in-azure-netapp-files) | Disaster Recovery | High | Verified  |         Yes         |
+| [ANF-6 - Enable Cross-region replication of Azure NetApp Files volumes](#anf-6---enable-cross-region-replication-of-azure-netapp-files-volumes) | Disaster Recovery | High | Verified  |         Yes         |
+| [ANF-7 - Enable Cross-zone replication of Azure NetApp Files volumes](#anf-7---enable-cross-zone-replication-of-azure-netapp-files-volumes) | Availability | High | Verified  |         Yes         |
+| [ANF-8 - Monitor Azure NetApp Files metrics to better understand usage pattern and performance](#anf-8---monitor-azure-netapp-files-metrics-to-better-understand-usage-pattern-and-performance) | Monitoring | Medium | Verified  |         No         |
+| [ANF-9 - Use Azure policy to enforce organizational standards and to assess compliance at-scale in Azure NetApp Files](#anf-9---use-azure-policy-to-enforce-organizational-standards-and-to-assess-compliance-at-scale-in-azure-netapp-files) | Governance | Medium | Verified  |         No         |
+| [ANF-10 - Restrict default access to Azure NetApp Files volumes](#anf-10---restrict-default-access-to-azure-netapp-files-volumes) | Access & Security | Medium | Verified  |         No         |
+| [ANF-11 - Make use of SMB continuous availability for supported applications](#anf-11---make-use-of-smb-continuous-availability-for-supported-applications) | Application Resilience | Medium | Verified  |         No         |
+| [ANF-12 - Ensure application resilience for service maintenance events](#anf-12---ensure-application-resilience-for-service-maintenance-events) | Application Resilience | Medium | Verified  |         No         |
 {{< /table >}}
 
 {{< alert style="info" >}}
